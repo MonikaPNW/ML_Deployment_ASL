@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
   const videoElement = document.getElementById('webcam-video');
   const startStopButton = document.getElementById('start-stop-btn');
-  const uploadButton = document.getElementById('upload-btn');
-  const imageContainer = document.getElementById('image-container');
+  //const uploadButton = document.getElementById('upload-btn');
+  //const imageContainer = document.getElementById('image-container');
   const videoContainer = document.getElementById('video-container');
-  const uploadedImage = document.getElementById('uploaded-image');
+  //const uploadedImage = document.getElementById('uploaded-image');
   const predictionContainer = document.getElementById('prediction-container');
   const predictionText = document.getElementById('prediction');
 
@@ -57,9 +57,9 @@ document.addEventListener('DOMContentLoaded', function () {
           videoElement.srcObject = mediaStream;
           isWebcamOn = true;
           startStopButton.textContent = 'Stop Webcam';
-          imageContainer.style.display = 'none';
+          //imageContainer.style.display = 'none';
           videoContainer.style.display = 'block';
-          predictionContainer.style.display = 'none';
+          predictionContainer.style.display = 'block';
 
           // Start sending frames for prediction
           sendFramesForPrediction();
@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
           isWebcamOn = false;
           startStopButton.textContent = 'Start Webcam';
           videoContainer.style.display = 'none';
+          predictionContainer.style.display = 'none'
 
           // Stop sending frames for prediction
           //clearInterval(sendFramesInterval);
@@ -84,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Event listener for the file upload button
+  /*
   uploadButton.addEventListener('change', function (event) 
   {
     const file = event.target.files[0];
@@ -118,14 +120,14 @@ document.addEventListener('DOMContentLoaded', function () {
           const data = imageData_transformed.data;
 
           const float32Array = new Float32Array(targetWidth * targetHeight);
-          /*
+          
           for (let i = 0; i < data.length; i += 4) {
               // Calculate grayscale value
               const gray = (data[i] + data[i + 1] + data[i + 2]) / 3;
 
               // Map grayscale value to [0, 1] and store in Float32Array
               float32Array[i / 4] = gray / 255.0;
-          }*/
+          }
           channels = 3;
           const inputTensor = new ort.Tensor('float32', float32Array, [1, channels, targetHeight, targetWidth]);
 
@@ -135,7 +137,8 @@ document.addEventListener('DOMContentLoaded', function () {
       reader.readAsDataURL(file);
     }
   });
-
+  */
+  
   // Function to continuously send frames for prediction
   let sendFramesInterval;
   function sendFramesForPrediction()
