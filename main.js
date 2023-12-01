@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
           videoContainer.style.display = 'none';
 
           // Stop sending frames for prediction
-          clearInterval(sendFramesInterval);
+          //clearInterval(sendFramesInterval);
       }
     }
     catch (error) 
