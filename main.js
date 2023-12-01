@@ -159,17 +159,23 @@ document.addEventListener('DOMContentLoaded', function () {
       const imageData_transformed = context.getImageData(0, 0, canvas.width, canvas.height);
       const data = imageData_transformed.data;
       channels = 3;
-      const float32Array = new Float32Array(channels * targetWidth * targetHeight);
-      /*
-      for (let i = 0; i < data.length; i += 4) {
-          // Calculate grayscale value
-          const gray = (data[i] + data[i + 1] + data[i + 2]) / 3;
+      // Normalize pixel values by dividing by 255
+      const normalizedData = new Float32Array(data.length);
 
-          // Map grayscale value to [0, 1] and store in Float32Array
-          float32Array[i / 4] = gray / 255.0;
-      }*/
-      
-      const inputTensor = new ort.Tensor('float32', float32Array, [1, channels, targetHeight, targetWidth]);
+      for (let i = 0; i < data.length; i++) {
+        normalizedData[i] = data[i] / 255;
+      }
+
+      // Permute channels (change from 'RGBA' to 'ARGB')
+      const permutedData = new Float32Array(data.length);
+
+      for (let i = 0; i < data.length; i += 4) {
+        permutedData[i] = normalizedData[i + 3]; // Alpha
+        permutedData[i + 1] = normalizedData[i]; // Red
+        permutedData[i + 2] = normalizedData[i + 1]; // Green
+        permutedData[i + 3] = normalizedData[i + 2]; // Blue
+      }
+      const inputTensor = new ort.Tensor('float32', permutedData, [1, channels, targetHeight, targetWidth]);
 
       // Put the modified pixel data back on the canvas
       //context.putImageData(float32Array, 0, 0);
