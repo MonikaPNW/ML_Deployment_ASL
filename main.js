@@ -158,8 +158,8 @@ document.addEventListener('DOMContentLoaded', function () {
       // Get the image data from the canvas
       const imageData_transformed = context.getImageData(0, 0, canvas.width, canvas.height);
       const data = imageData_transformed.data;
-
-      const float32Array = new Float32Array(targetWidth * targetHeight);
+      channels = 3;
+      const float32Array = new Float32Array(channels * targetWidth * targetHeight);
       /*
       for (let i = 0; i < data.length; i += 4) {
           // Calculate grayscale value
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
           // Map grayscale value to [0, 1] and store in Float32Array
           float32Array[i / 4] = gray / 255.0;
       }*/
-      channels = 3;
+      
       const inputTensor = new ort.Tensor('float32', float32Array, [1, channels, targetHeight, targetWidth]);
 
       // Put the modified pixel data back on the canvas
