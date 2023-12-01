@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
       //sendImageForPrediction(imageData);
       sendImageForPrediction(inputTensor);
 
-    }, 1000); 
+    }, 100); 
   }
 
   // Function to send the image to the server for prediction
