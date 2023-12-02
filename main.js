@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const data = imageData_transformed.data;
       channels = 3;
       // Normalize pixel values by dividing by 255
-      const normalizedData = new Float32Array(data.length);
+      const normalizedData = new Float32Array(channels * targetWidth * targetHeight);
 
       for (let i = 0; i < data.length; i++) {
         normalizedData[i] = data[i] / 255;
