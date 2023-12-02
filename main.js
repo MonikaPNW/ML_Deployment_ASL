@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Get the image data from the canvas
       const imageData_transformed = context.getImageData(0, 0, canvas.width, canvas.height);
       const data = imageData_transformed.data;
-      channels = 3;
+      channels = 4;
       // Normalize pixel values by dividing by 255
       const normalizedData = new Float32Array(channels * targetWidth * targetHeight);
       
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
         permutedData[i + 2] = normalizedData[i + 1]; // Green
         permutedData[i + 3] = normalizedData[i + 2]; // Blue
       }
-      console.log(permutedData.length)
+      
       const inputTensor = new ort.Tensor('float32', permutedData, [1, channels, targetHeight, targetWidth]);
 
       // Put the modified pixel data back on the canvas
