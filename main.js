@@ -161,13 +161,13 @@ document.addEventListener('DOMContentLoaded', function () {
       channels = 3;
       // Normalize pixel values by dividing by 255
       const normalizedData = new Float32Array(channels * targetWidth * targetHeight);
-
+      
       for (let i = 0; i < data.length; i++) {
         normalizedData[i] = data[i] / 255;
       }
 
       // Permute channels (change from 'RGBA' to 'ARGB')
-      const permutedData = new Float32Array(data.length);
+      const permutedData = new Float32Array(channels * targetWidth * targetHeight);
 
       for (let i = 0; i < data.length; i += 4) {
         permutedData[i] = normalizedData[i + 3]; // Alpha
@@ -175,6 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
         permutedData[i + 2] = normalizedData[i + 1]; // Green
         permutedData[i + 3] = normalizedData[i + 2]; // Blue
       }
+      console.log(permutedData.length)
       const inputTensor = new ort.Tensor('float32', permutedData, [1, channels, targetHeight, targetWidth]);
 
       // Put the modified pixel data back on the canvas
