@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
           startStopButton.textContent = 'Start Webcam';
           videoContainer.style.display = 'none';
           predictionContainer.style.display = 'none';
+          isWebcamOn = false;
 
           // Stop sending frames for prediction
           //clearInterval(sendFramesInterval);
