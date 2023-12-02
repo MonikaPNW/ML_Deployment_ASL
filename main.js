@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let outputMap = await session.run(feeds);
     
     let outputData = outputMap.output1.data;
-    console.log(outputData)
+    
 
     let max = outputData[0];
     let maxIndex = 0;
