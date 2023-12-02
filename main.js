@@ -180,6 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
         permutedData[j] = normalizedData[i];         // Red
         permutedData[j + 1] = normalizedData[i + 1]; // Green
         permutedData[j + 2] = normalizedData[i + 2]; // Blue
+        permutedData[j + 3] = 1.0;  // Set alpha to 1.0 (fully opaque)
       }
       
       const inputTensor = new ort.Tensor('float32', permutedData, [1, channels, targetHeight, targetWidth]);
