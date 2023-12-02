@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Get the image data from the canvas
       const imageData_transformed = context.getImageData(0, 0, canvas.width, canvas.height);
       const data = imageData_transformed.data;
-      channels = 4;
+      channels = 3;
       // Normalize pixel values by dividing by 255
       const normalizedData = new Float32Array(channels * targetWidth * targetHeight);
       
@@ -168,12 +168,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Permute channels (change from 'RGBA' to 'ARGB')
       const permutedData = new Float32Array(channels * targetWidth * targetHeight);
-
+      /*
       for (let i = 0; i < data.length; i += 4) {
         permutedData[i] = normalizedData[i + 3]; // Alpha
         permutedData[i + 1] = normalizedData[i]; // Red
         permutedData[i + 2] = normalizedData[i + 1]; // Green
         permutedData[i + 3] = normalizedData[i + 2]; // Blue
+      }*/
+      for (let i = 0, j = 0; i < data.length; i += 4, j += 3) {
+        permutedData[j] = normalizedData[i];         // Red
+        permutedData[j + 1] = normalizedData[i + 1]; // Green
+        permutedData[j + 2] = normalizedData[i + 2]; // Blue
       }
       
       const inputTensor = new ort.Tensor('float32', permutedData, [1, channels, targetHeight, targetWidth]);
