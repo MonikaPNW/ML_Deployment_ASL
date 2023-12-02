@@ -159,8 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const imageData_transformed = context.getImageData(0, 0, canvas.width, canvas.height);
       const data = imageData_transformed.data;
       channels = 3;
-      const channels_check = imageData_transformed.data.length;
-      console.log(channels_check)
+      
       // Normalize pixel values by dividing by 255
       const normalizedData = new Float32Array(channels * targetWidth * targetHeight);
       
@@ -200,6 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Function to send the image to the server for prediction
   async function  sendImageForPrediction(inputTensor) 
   {
+    console.log(inputTensor)
     let session = await ort.InferenceSession.create('asl_sign.onnx');
     let feeds = {"input1":inputTensor};
     let outputMap = await session.run(feeds);
