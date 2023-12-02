@@ -159,6 +159,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const imageData_transformed = context.getImageData(0, 0, canvas.width, canvas.height);
       const data = imageData_transformed.data;
       channels = 3;
+      const channels_check = imageData.data.length === data.length ? 4 : 3;
+      console.log(channels_check)
       // Normalize pixel values by dividing by 255
       const normalizedData = new Float32Array(channels * targetWidth * targetHeight);
       
@@ -203,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let outputMap = await session.run(feeds);
     
     let outputData = outputMap.output1.data;
-    
+    console.log(outputData)
 
     let max = outputData[0];
     let maxIndex = 0;
