@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
           isWebcamOn = false;
 
           // Stop sending frames for prediction
-          //clearInterval(sendFramesInterval);
+          clearInterval(sendFramesInterval);
       }
     }
     catch (error) 
@@ -201,13 +201,13 @@ document.addEventListener('DOMContentLoaded', function () {
   // Function to send the image to the server for prediction
   async function  sendImageForPrediction(inputTensor) 
   {
-    console.log(inputTensor)
+    //console.log(inputTensor)
     let session = await ort.InferenceSession.create('asl_sign.onnx');
     let feeds = {"input1":inputTensor};
     let outputMap = await session.run(feeds);
     
     let outputData = outputMap.output1.data;
-    console.log(outputData)
+    //console.log(outputData)
 
     let max = outputData[0];
     let maxIndex = 0;
